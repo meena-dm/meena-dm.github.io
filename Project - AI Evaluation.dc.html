@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #ffffff; }
+  a { text-decoration: none; color: inherit; }
+  img { max-width: 100%; height: auto; }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 28px 22px 56px !important; }
+  }
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail" data-bg-color="#2f5fb0">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#2f5fb0"></rect><text x="50" y="50" dy="0.35em" text-anchor="middle" font-family="Georgia, serif" font-size="34" fill="#ffffff">MM</text></svg>
+</template>
+
+<div style="min-height: 100vh; background: #ffffff; font-family: 'Public Sans', sans-serif; color: #1a1a1a;">
+  <div class="wrap" style="max-width: 760px; margin: 0 auto; padding: 38px 48px 72px;">
+
+    <!-- nav -->
+    <div style="display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 56px;">
+      <a href="index.html" style="font-family: 'Newsreader', serif; font-size: 19px; font-weight: 500;">Meena M</a>
+      <div style="display: flex; gap: 24px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #7a7569;">
+        <a href="mailto:mdmk.meena@gmail.com">Contact</a>
+        <a href="https://www.linkedin.com/in/meena-m" style="color:#2f5fb0;">LinkedIn ↗</a>
+      </div>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <a href="index.html#projects" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #7a7569;">← Projects</a>
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: #7a7569; border: 1px solid #e0ddd5; padding: 2px 8px; border-radius: 2px;">ACADEMIC</span>
+    </div>
+
+    <!-- title -->
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #7a7569; margin: 36px 0 16px;">Academic · Human-Centered AI · 2023</div>
+    <h1 style="font-family: 'Newsreader', serif; font-weight: 400; font-size: 38px; line-height: 1.16; letter-spacing: -0.01em; margin: 0 0 22px;">Human-centered evaluation of a toxicity-detection model</h1>
+
+    <!-- tags -->
+    <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:26px;">
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; border:1px solid #e0ddd5; color:#57534b; padding:3px 10px; border-radius:2px;">python</span>
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; border:1px solid #e0ddd5; color:#57534b; padding:3px 10px; border-radius:2px;">ml-eval</span>
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; border:1px solid #e0ddd5; color:#57534b; padding:3px 10px; border-radius:2px;">nlp</span>
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; border:1px solid #e0ddd5; color:#57534b; padding:3px 10px; border-radius:2px;">hci</span>
+    </div>
+
+    <!-- TL;DR -->
+    <div style="background: #fcfbf9; border: 1px solid #e8e8e6; border-radius: 2px; padding: 22px 24px; margin-bottom: 16px;">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:#7a7569; margin-bottom:11px;">TL;DR</div>
+      <p style="font-size:15.5px; line-height:1.6; color:#1a1a1a; margin:0;">Where a toxicity classifier's judgments diverge from how people actually read harm — and what that gap means for deploying it.</p>
+    </div>
+
+    <!-- meta strip -->
+    <div style="display:flex; gap:34px; padding:18px 0 30px; border-bottom:1px solid #e8e8e6;">
+      <div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#7a7569; margin-bottom:6px;">Role</div><div style="font-size:13px;">Lead Researcher</div></div>
+      <div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#7a7569; margin-bottom:6px;">Output</div><div style="font-size:13px;">Paper</div></div>
+      <div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#7a7569; margin-bottom:6px;">Year</div><div style="font-size:13px;">2023</div></div>
+    </div>
+
+    <!-- Abstract / Motivation -->
+    <h2 style="font-family:'Newsreader',serif; font-weight:500; font-size:21px; margin:36px 0 12px;">Motivation</h2>
+    <p style="font-size:15px; line-height:1.68; color:#3f3b34; margin:0 0 34px; max-width:560px;">Standard toxicity benchmarks score against fixed labels. But "harm" is read differently across people and contexts — so a model that's accurate on the benchmark can still misjudge in the wild. This work evaluates a toxicity-detection model (Perspective) on human terms.</p>
+
+    <!-- Method -->
+    <h2 style="font-family:'Newsreader',serif; font-weight:500; font-size:21px; margin:0 0 14px;">Study Design</h2>
+    <p style="font-size:15px; line-height:1.68; color:#3f3b34; margin:0 0 18px; max-width:560px;">The main objective was to conduct a human-centered evaluation by directly comparing the toxicity model's ratings to human judgements of toxicity (crowdsourced).</p>
+    <p style="font-size:15px; line-height:1.68; color:#3f3b34; margin:0 0 18px; max-width:560px;">We also</p>
+    <ul style="margin:0 0 34px; padding-left:18px; font-size:15px; line-height:1.75; color:#3f3b34; max-width:560px;">
+      <li>Tested how model and human judgments of toxicity varied on news-based comments from different online platforms (News sites, YouTube News Channels, and Twitter News handles)</li>
+      <li>Collected human judgements of whether the comments were respectful in tone, written in formal language, and contained stereotypes to test for latent attributes in model's judgement of toxicity,</li>
+    </ul>
+    <p style="font-size:15px; line-height:1.68; color:#3f3b34; margin:0 0 18px; max-width:560px;">thus conducting a sociotechnical, human-centered evaluation of the toxicity-detection model.</p>
+
+    <h3 style="font-family:'Newsreader',serif; font-weight:500; font-size:18px; margin:0 0 14px;">Methods</h3>
+    <p style="font-size:15px; line-height:1.68; color:#3f3b34; margin:0 0 18px; max-width:560px;">Human toxicity judgments were collected on an ordinal scale and ordinal logistic regression was used to analyze human judgments (dependent variable) against the model scores and the source platform (dependent variables)</p>
+
+    <!-- <div style="background:#1c1b19; border-radius:4px; padding:18px 20px; margin-bottom:24px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; line-height:1.7; color:#d9d6cf; overflow:auto;">
+      <div style="color:#7d7a72;"># disagreement between model and human raters</div>
+      <div>gap = model_score - human_mean</div>
+      <div>flagged = items[<span style="color:#9db4e0;">abs</span>(gap) &gt; <span style="color:#c8a06a;">0.4</span>]</div>
+      <div style="color:#7d7a72;"># → where the model is confidently wrong</div>
+    </div>
+    <div style="height: 230px; border: 1px solid #e8e8e6; border-radius: 2px; background: repeating-linear-gradient(135deg,#fbfbfa,#fbfbfa 11px,#f3f3f1 11px,#f3f3f1 22px); display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #a8a39a; margin-bottom: 36px;">figure — model vs. human judgment</div> -->
+
+    <!-- Findings -->
+    <h2 style="font-family:'Newsreader',serif; font-weight:500; font-size:21px; margin:0 0 12px;">Key Findings</h2>
+    <ol style="margin:0 0 34px; padding-left:18px; font-size:15px; line-height:1.75; color:#3f3b34; max-width:560px;">
+      <li>For high toxicity scores, the model strongly aligns with human ratings of toxicity and disrespectfulness across all three platforms, providing evidence of its <i>transferability</i></li>
+      <figure>
+        <img src="img/perspective-toxicity.png" style="width: 100%; height: auto;">
+        <figcaption style="font-size:11px; line-height:1.75; color:#3f66a9; max-width:560px;">Figure 1: Probability of how human toxicity ratings correspond to model's toxicity scores for news-related comments from news websites, YouTube, and Twitter. As the toxicity score increases (x axis),the probability that a participant would have rated the comment as toxic also increases (y axis).</figcaption>
+      </figure>
+      <li>However, high toxicity scores from the model is also a strong predictor of humans rating the comment as <i>informal</i> and as <i>containing stereotypes</i>, indicating that the model conflates informal comments and comments containing stereotypes as toxicity.</li>
+      <ul>
+        <li>Uncovering the presence of latent attributes allows us to explore further questions about whether the model considers some stereotypes more toxic than others and at a more fundamental level, whether those attributes are desirable behavior in the first place!</li>
+        <li>Interestingly, human ratings of informal/formal speech did not affect their toxicity ratings, i.e., their ratings of formality had no bearing on ratings of toxicity</li>
+      </ul>
+      <li>Based on Figure 1, we can conclude that the model can be put to use for automatic detection of toxic comments rather than detection of non-toxic comments. Even when model's toxicity scores are low, the probability that the human would rate it as non-toxic is less than 50%.</li>
+    </ol>
+
+    <!-- What's next -->
+    <h2 style="font-family:'Newsreader',serif; font-weight:500; font-size:21px; margin:0 0 12px;">Challenges & Takeaways</h2>
+    <!-- <p style="font-size:15px; line-height:1.68; color:#3f3b34; margin:0 0 32px; max-width:560px;">[A human-in-the-loop evaluation protocol others could reuse.]</p> -->
+    <ul style="margin:0 0 34px; padding-left:18px; font-size:15px; line-height:1.75; color:#3f3b34; max-width:560px;">
+      <li>The first challenge was collecting reliable toxicity ratings. When using 3-point Likert scales or 10-point numeric scales, human raters tended to gravitate toward the middle option — akin to the <a href="https://en.wikipedia.org/wiki/Goldilocks_principle">Goldilocks effect</a>. We therefore had to design a data collection mechanism that encouraged more deliberate judgements. Check out the paper to see how we used a comment and rating as an anchor to elicit more relative judgements and, in turn, higher quality data.</li>
+      <li>How do you analyze ordered data? Many studies apply linear regression, but toxicity judgements are ordinal — the gap between "not toxic" and "hard to say" is not the same as the gap between "hard to say" and "toxic." To account for this, we applied ordinal logistic regression. To keep results accessible to UX and product professionals, we used predicted probabilities and visualizations rather than odds ratios to examine human–AI alignment.</li>
+      <li>We restricted our dataset to news comments to hold the topic constant — otherwise, platform differences could be attributed to comment subject matter rather than inherent linguistic differences across platforms. This is also a limitation, however. We observe reasonable transferability, likely because all comments share the same news-themed context.</li>
+    </ul>
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#7a7569; padding-top:22px; border-top:1px solid #e8e8e6;">
+      <a href="https://dl.acm.org/doi/full/10.1145/3582568" style="color:#2f5fb0;">paper ↗</a> &nbsp;·&nbsp; 
+      <!-- <a href="#" style="color:#2f5fb0;">repo ↗</a>  -->
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #ffffff; }
+  a { text-decoration: none; color: inherit; }
+  img { max-width: 100%; height: auto; }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 28px 22px 56px !important; }
+  }
+
+  /* ===== question comparison (CSS-only tabs) ===== */
+  .qc { border: 1px solid #e8e8e6; border-radius: 2px; margin: 6px 0 32px; overflow: hidden; }
+  .qc-split { display: grid; grid-template-columns: 1fr 1fr; }
+  .qc-left { padding: 18px 20px; border-right: 1px solid #e8e8e6; }
+  .qc-right { display: flex; flex-direction: column; position: relative; min-width: 0; }
+  .qc-radio { position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; pointer-events: none; }
+  .qc-tabs { display: flex; flex-wrap: wrap; padding: 0 8px; border-bottom: 1px solid #e8e8e6; }
+  .qc-tab { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.02em; padding: 11px 11px; color: #7a7569; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; user-select: none; }
+  .qc-tab:hover { color: #1a1a1a; }
+  .qc-body { padding: 16px 20px; }
+  .qc-panel { display: none; }
+  .qc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+  .qc-list li { font-size: 13px; line-height: 1.5; color: #3f3b34; padding: 9px 11px; background: #fcfbf9; border: 1px solid #f0eee9; border-left: 2px solid #d8d4cc; border-radius: 2px; }
+  .qc-pre { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.04em; text-transform: uppercase; color: #7a7569; margin-right: 6px; }
+  .qc-note { font-size: 12.5px; line-height: 1.55; color: #7a7569; font-style: italic; margin: 12px 0 0; }
+  .qc-badge { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 9px; border-radius: 2px; margin-bottom: 13px; border: 1px solid #e0ddd5; color: #57534b; }
+
+  /* left panel (human) — constant */
+  .qc-left .qc-list li { border-left-color: #8a9a7c; }
+  .qc-left .qc-badge { border-color: #cdd6c4; color: #5f7256; background: #f4f7f1; }
+
+  /* default visible panel + active tab (deepeval) */
+  .qc-panel[data-tab="de"] { display: block; }
+  .qc-tabs label[for="qc-de"] { color: #2f5fb0; border-bottom-color: #2f5fb0; }
+
+  /* switch panels on :checked */
+  #qc-ev:checked ~ .qc-body .qc-panel[data-tab="de"],
+  #qc-sc:checked ~ .qc-body .qc-panel[data-tab="de"],
+  #qc-tx:checked ~ .qc-body .qc-panel[data-tab="de"] { display: none; }
+  #qc-ev:checked ~ .qc-body .qc-panel[data-tab="ev"],
+  #qc-sc:checked ~ .qc-body .qc-panel[data-tab="sc"],
+  #qc-tx:checked ~ .qc-body .qc-panel[data-tab="tx"] { display: block; }
+
+  /* switch active tab on :checked */
+  #qc-ev:checked ~ .qc-tabs label[for="qc-de"],
+  #qc-sc:checked ~ .qc-tabs label[for="qc-de"],
+  #qc-tx:checked ~ .qc-tabs label[for="qc-de"] { color: #7a7569; border-bottom-color: transparent; }
+  #qc-ev:checked ~ .qc-tabs label[for="qc-ev"],
+  #qc-sc:checked ~ .qc-tabs label[for="qc-sc"],
+  #qc-tx:checked ~ .qc-tabs label[for="qc-tx"] { color: #2f5fb0; border-bottom-color: #2f5fb0; }
+
+  /* per-approach accent (muted to fit palette) */
+  .qc-panel[data-tab="de"] .qc-list li { border-left-color: #c08a8a; }
+  .qc-panel[data-tab="ev"] .qc-list li { border-left-color: #cba36a; }
+  .qc-panel[data-tab="sc"] .qc-list li { border-left-color: #a98fc0; }
+  .qc-panel[data-tab="tx"] .qc-list li { border-left-color: #2f5fb0; }
+  .qc-panel[data-tab="de"] .qc-badge { border-color: #e3cdcd; color: #9c5f5f; background: #faf3f3; }
+  .qc-panel[data-tab="ev"] .qc-badge { border-color: #e6d3b5; color: #976f3a; background: #faf5ec; }
+  .qc-panel[data-tab="sc"] .qc-badge { border-color: #ddcde6; color: #7a5c92; background: #f8f4fa; }
+  .qc-panel[data-tab="tx"] .qc-badge { border-color: #c3d0e8; color: #2f5fb0; background: #f1f5fb; }
+
+  @media (max-width: 640px) {
+    .qc-split { grid-template-columns: 1fr; }
+    .qc-left { border-right: none; border-bottom: 1px solid #e8e8e6; }
+  }
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail" data-bg-color="#2f5fb0">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#2f5fb0"></rect><text x="50" y="50" dy="0.35em" text-anchor="middle" font-family="Georgia, serif" font-size="34" fill="#ffffff">MM</text></svg>
+</template>
+
+<div style="min-height: 100vh; background: #ffffff; font-family: 'Public Sans', sans-serif; color: #1a1a1a;">
+  <div class="wrap" style="max-width: 760px; margin: 0 auto; padding: 38px 48px 72px;">
+
+    <!-- nav -->
+    <div style="display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 56px;">
+      <a href="index.html" style="font-family: 'Newsreader', serif; font-size: 19px; font-weight: 500;">Meena M</a>
+      <div style="display: flex; gap: 24px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #7a7569;">
+        <a href="mailto:mdmk.meena@gmail.com">Contact</a>
+        <a href="https://www.linkedin.com/in/meena-m" style="color:#2f5fb0;">LinkedIn ↗</a>
+      </div>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <a href="index.html#projects" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #7a7569;">← Projects</a>
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: #2f5fb0; border: 1px solid #2f5fb0; padding: 2px 8px; border-radius: 2px;">GRAD PROJECT</span>
+    </div>
+
+    <!-- title -->
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #7a7569; margin: 36px 0 16px;">2025</div>
+    <h1 style="font-family: 'Newsreader', serif; font-weight: 400; font-size: 38px; line-height: 1.16; letter-spacing: -0.01em; margin: 0 0 22px;">Synthetic data generation, grounded in empirical HCI research</h1>
+
+    <!-- tags -->
+    <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:26px;">
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; border:1px solid #e0ddd5; color:#57534b; padding:3px 10px; border-radius:2px;">synthetic-data</span>
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; border:1px solid #e0ddd5; color:#57534b; padding:3px 10px; border-radius:2px;">evaluation</span>
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; border:1px solid #e0ddd5; color:#57534b; padding:3px 10px; border-radius:2px;">human-centered</span>
+    </div>
+
+    <!-- TL;DR -->
+    <div style="background: #fcfbf9; border: 1px solid #e8e8e6; border-radius: 2px; padding: 22px 24px; margin-bottom: 16px;">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:#7a7569; margin-bottom:11px;">TL;DR</div>
+      <p style="font-size:15.5px; line-height:1.6; color:#1a1a1a; margin:0;">Generic synthetic data generation techniques may not faithfully reproduce how users actually behave. HCI research findings allow us to steer model outputs with real, observed behavior, leading to evals that actually stress-test AI for real-world use.</p>
+    </div>
+
+    <!-- meta strip -->
+    <div style="display:flex; gap:34px; padding:18px 0 30px; border-bottom:1px solid #e8e8e6;">
+      <div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#7a7569; margin-bottom:6px;">Role</div><div style="font-size:13px;">Solo</div></div>
+      <div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#7a7569; margin-bottom:6px;">Stack</div><div style="font-size:13px;">Python · LLM</div></div>
+      <div><div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#7a7569; margin-bottom:6px;">Year</div><div style="font-size:13px;">2025</div></div>
+    </div>
+
+    <!-- Overview -->
+    <h2 style="font-family:'Newsreader',serif; font-weight:500; font-size:21px; margin:36px 0 12px;">Overview / Motivation</h2>
+    <ul style="margin:0 0 20px; padding-left:20px; font-size:15px; line-height:1.75; color:#3f3b34; max-width:560px;">
+      <li>Product teams increasingly use LLM-generated synthetic data (e.g., personas, AI test users, simulated questions) to fill gaps when real participants are unavailable</li>
+      <li>But off-the-shelf tools can produce generic output that does not reflect how people actually behave, and loose attempts to use HCI representations often fall into the same trap: thin, overgeneralized, and prone to stereotype</li>
+      <li>This project proposes something more rigorous - <b>match a product context to a relevant subset of empirical HCI findings, and use that to steer synthetic data generation toward behavior that is actually observed </b></li>
+    </ul> 
+
+    <!-- Use case -->
+    <h2 style="font-family:'Newsreader',serif; font-weight:500; font-size:21px; margin:0 0 12px;">Use Case</h2>
+    <p style="font-size:15px; line-height:1.68; color:#3f3b34; margin:0 0 32px; max-width:560px;">Question-answering systems are increasingly used to scale interactions in online spaces; however, designing and evaluating them requires knowing the range of questions users actually ask, and which ones AI should handle versus humans. When real data is scarce or insufficient, synthetic data can fill the gap — but only if it reflects how people actually ask questions in that context. <br>
+    <br>I use question-answering contexts as a demonstrative example. HCI research has produced <b>detailed taxonomies of real user questions</b> across online communities and other settings, and I <b>use those taxonomies to both evaluate synthetic data as well as to generate synthetic data more grounded in observed behavior</b>.
+    <br><br>Specifically, I leverage Hoque et al.'s (<a href="https://dl.acm.org/doi/full/10.1145/3613904.3642007">ref</a>) work on news-based QA chatbots which includes a taxonomy of questions news readers ask post reading a news article and a dataset of the specific questions they had.</p>
+
+
+    <!-- How it works
+    <h2 style="font-family:'Newsreader',serif; font-weight:500; font-size:21px; margin:0 0 14px;">How it works</h2>
+    <ol style="margin:0 0 20px; padding-left:20px; font-size:15px; line-height:1.75; color:#3f3b34; max-width:560px;">
+      <li>Encode HCI constructs as generation constraints.</li>
+      <li>Sample participants; validate against real distributions.</li>
+      <li>Export study-ready datasets.</li>
+    </ol>
+    <div style="background:#1c1b19; border-radius:4px; padding:18px 20px; margin-bottom:36px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; line-height:1.7; color:#d9d6cf; overflow:auto;">
+      <div style="color:#7d7a72;"># grounded cohort</div>
+      <div><span style="color:#9db4e0;">from</span> hci_synth <span style="color:#9db4e0;">import</span> Cohort</div>
+      <div>cohort = Cohort(construct=<span style="color:#c8a06a;">"trust_in_ai"</span>, n=<span style="color:#c8a06a;">500</span>)</div>
+      <div>df = cohort.generate(validate=<span style="color:#9db4e0;">True</span>)</div>
+      <div style="color:#7d7a72;"># → 500 rows, KS-tested vs. study data</div>
+    </div> -->
+
+    <!-- Method figure -->
+    <h2 style="font-family:'Newsreader',serif; font-weight:500; font-size:21px; margin:0 0 14px;">Method</h2>
+      <!-- <div style="height: 230px; border: 1px solid #e8e8e6; border-radius: 2px; background: repeating-linear-gradient(135deg,#fbfbfa,#fbfbfa 11px,#f3f3f1 11px,#f3f3f1 22px); display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #a8a39a; margin-bottom: 36px;">figure — generation pipeline</div> -->
+    <div style="display:grid; grid-template-columns:auto 1fr; gap:7px 16px; font-size:14px; line-height:1.55; color:#3f3b34; margin-bottom:16px; max-width:520px;">
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:#7a7569; padding-top:3px;">[Question Taxonomies for Evaluation]</span><span>How does synthetic data generated by different tools cover categories observed in human questions?</span>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:#7a7569; padding-top:3px;">[Question Taxonomies for Generation]</span><span>Does generating synthetic data using the question taxonomy outperform other generation approaches?</span>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:#7a7569; padding-top:3px;"></span><span style="color:#1a1a1a;"></span>
+    </div>
+    <p style="font-size:14px; line-height:1.55; color:#3f3b34;">I tested data from the open source eval library - deepeval and a no-code AI eval tool - evidently. Additionally, synthetic data was generated using a taxonomy-based approach (provide the taxonomy in the prompt) and a scenario-based approach (what questions would news readers would have if a human vs an AI was providing answers?)</p>
+    <img src="img/method.png" width="600" height="275">
+
+    <!-- Findings -->
+    <h2 style="font-family:'Newsreader',serif; font-weight:500; font-size:21px; margin:0 0 12px;">Key Findings</h2>
+    <ul style="margin:0 0 34px; padding-left:18px; font-size:15px; line-height:1.75; color:#3f3b34; max-width:560px;">
+      <li>All four approaches generated synthetic data that covered <b>objective</b> categories of the question taxonomy (e.g., facts, details, information, additional explanations). However, only the taxonomy and scenario based generation approach produced more <b>subjective</b> and evidence-seeking questions — the categories most representative of how real users engage with news.</li>
+      <ul>
+        <li>For example, scenario-based prompting generated 114 subjective/opinion questions vs. just 16 from evidently, and 18 evidence-seeking questions vs. 4 from evidently.</li>
+      </ul>
+      <img src="img/dist.png" style="width: 100%; height: auto;">
+      <br><br>
+      <li>Questions from deepeval and Evidently were harder to read and less natural-sounding. Questions from the taxonomy-based and scenario-based approaches scored better on readability metrics (Flesch-Kincaid), making them more plausible as questions a real user might actually ask or type.</li>
+      <li>On semantic similarity metrics, deepeval and evidently appeared most similar to the human dataset (higher pairwise cosine similarity scores than taxonomy or scenario approaches). <i>But this is misleading.</i></li>
+      <ul>
+        <li>Their questions were very similar to each other (low intra-group diversity), which inflates pairwise comparison scores when measured against the human dataset. High similarity to humans doesn't equal high coverage of human question types — it may just mean the tool generated the same narrow set of questions repeatedly.</li>
+      </ul>
+    </ul>
+
+    <!-- Question comparison -->
+    <h2 style="font-family:'Newsreader',serif; font-weight:500; font-size:21px; margin:0 0 6px;">Comparing the questions</h2>
+    <p style="font-size:14px; line-height:1.6; color:#3f3b34; margin:0 0 14px; max-width:560px;">A concrete look at one article — a measles outbreak spreading across NYC-area communities. Real reader questions stay fixed on the left; switch the tabs on the right to see what each approach generated from the same article.</p>
+
+    <div class="qc">
+      <div class="qc-split">
+
+        <!-- LEFT: human questions (constant) -->
+        <div class="qc-left">
+          <span class="qc-badge">Real human questions</span>
+          <ul class="qc-list">
+            <li><span class="qc-pre">Journalist</span>Is there a reason why NYC has such a large concentration of cases?</li>
+            <li><span class="qc-pre">Journalist</span>Is there a strategy to counter misinformation and shift vaccine sentiment back toward science?</li>
+            <li><span class="qc-pre">Journalist</span>Are these fines actually being enforced? What are the options for parents who can't afford them?</li>
+            <li><span class="qc-pre">Chatbot</span>How many cases were reported on Wednesday?</li>
+            <li><span class="qc-pre">Chatbot</span>How likely are you to die if you get measles?</li>
+          </ul>
+          <p class="qc-note">Varied in tone and type — factual, critical, and opinion-seeking. The benchmark every synthetic approach is measured against.</p>
+        </div>
+
+        <!-- RIGHT: synthetic approaches (tabbed) -->
+        <div class="qc-right">
+          <input class="qc-radio" type="radio" name="qc" id="qc-de" defaultChecked="true">
+          <input class="qc-radio" type="radio" name="qc" id="qc-ev">
+          <input class="qc-radio" type="radio" name="qc" id="qc-sc">
+          <input class="qc-radio" type="radio" name="qc" id="qc-tx">
+          <div class="qc-tabs">
+            <label class="qc-tab" for="qc-de">deepeval</label>
+            <label class="qc-tab" for="qc-ev">Evidently</label>
+            <label class="qc-tab" for="qc-sc">Scenario</label>
+            <label class="qc-tab" for="qc-tx">Taxonomy</label>
+          </div>
+          <div class="qc-body">
+
+            <div class="qc-panel" data-tab="de">
+              <span class="qc-badge">deepeval · open-source eval library</span>
+              <ul class="qc-list">
+                <li>How many measles cases, reaching a 25-year high, were reported across the US recently?</li>
+                <li>Trace the timeline from measles eradication in 2000 to the recent resurgence.</li>
+                <li>What are the penalties for non-compliance with NYC's mandatory vaccination order in Williamsburg?</li>
+                <li>How do anti-vaxxers' beliefs about the MMR vaccine contrast with scientific consensus and CDC data?</li>
+                <li>Who must comply with the Williamsburg mandatory vaccination order and face fines otherwise?</li>
+              </ul>
+              <p class="qc-note">Fact-retrieval with formal phrasing — plausible on the surface, but feels generated rather than asked by a real reader.</p>
+            </div>
+
+            <div class="qc-panel" data-tab="ev">
+              <span class="qc-badge">Evidently AI · no-code platform</span>
+              <ul class="qc-list">
+                <li>How many people were hospitalized due to the recent measles outbreak?</li>
+                <li>What percentage of children enrolled in kindergarten had received their MMR vaccine in 2017?</li>
+                <li>What percentage of children entering kindergarten in 2017 had received both doses of the MMR vaccine?</li>
+                <li>What consequence faces individuals who refuse to get vaccinated as per the emergency order?</li>
+                <li>What year did measles get eradicated in the US?</li>
+              </ul>
+              <p class="qc-note">Readable and relevant, but almost exclusively fact-retrieval — low diversity across question types.</p>
+            </div>
+
+            <div class="qc-panel" data-tab="sc">
+              <span class="qc-badge">Scenario-based prompting</span>
+              <ul class="qc-list">
+                <li><span class="qc-pre">Human</span>What measures are being taken to combat misinformation about vaccines?</li>
+                <li><span class="qc-pre">Human</span>How does this outbreak compare to previous ones in scale and impact?</li>
+                <li><span class="qc-pre">Human</span>What role did public health officials play in enforcing mandatory vaccinations?</li>
+                <li><span class="qc-pre">Chatbot</span>Which areas have reported the highest incidence of measles?</li>
+                <li><span class="qc-pre">Chatbot</span>When was measles officially eradicated in the U.S.?</li>
+              </ul>
+              <p class="qc-note">Framing the recipient (human vs. AI) yields more varied, natural-sounding questions than off-the-shelf tools.</p>
+            </div>
+
+            <div class="qc-panel" data-tab="tx">
+              <span class="qc-badge">Taxonomy-based prompting</span>
+              <ul class="qc-list">
+                <li>What are the zip codes affected by the mandatory vaccination order in Williamsburg?</li>
+                <li>What has been the hospitalization rate among those infected in the outbreak?</li>
+                <li>Were measles eradicated in the U.S. prior to this outbreak?</li>
+                <li>What do you think is the most effective way to combat misinformation about vaccines?</li>
+                <li>What are the legal implications for those who refuse vaccinations?</li>
+              </ul>
+              <p class="qc-note">Closest to real human questions in diversity and tone — spans factual, opinion-seeking, and evidence-seeking types.</p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <br>
+    <!-- What's next -->
+    <h2 style="font-family:'Newsreader',serif; font-weight:500; font-size:21px; margin:0 0 12px;">What's next</h2>
+    <p style="font-size:15px; line-height:1.68; color:#3f3b34; margin:0 0 32px; max-width:560px;">Running a LLM-as-a-judge pipeline to evaluate quality of synthetic questions and their human-likeness</p>
+
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#7a7569; padding-top:22px; border-top:1px solid #e8e8e6;">
+      Under review · <a href="mailto:mdmk.meena@gmail.com" style="color:#2f5fb0;">contact for the paper draft ↗</a>
+      <!-- <a href="#" style="color:#2f5fb0;">repo ↗</a> &nbsp;·&nbsp; <a href="#" style="color:#2f5fb0;">notebook ↗</a>  -->
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&amp;family=Public+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { overflow-x: hidden; }
+  body { margin: 0; background: #ffffff; }
+  a { text-decoration: none; color: inherit; }
+  img { max-width: 100%; height: auto; }
+  .hero > div { min-width: 0; }
+
+  /* ===== responsive ===== */
+  @media (max-width: 860px) {
+    .wrap { padding: 32px 32px 56px !important; }
+    .hero { grid-template-columns: 1fr !important; gap: 30px !important; padding-bottom: 64px !important; }
+    .exp-card { grid-template-columns: 1fr !important; gap: 16px !important; padding: 28px 26px !important; }
+    .proj-grid { grid-template-columns: 1fr !important; }
+  }
+  @media (max-width: 560px) {
+    .wrap { padding: 24px 20px 48px !important; }
+  }
+
+  /* ===== hero typed title (CSS-only typewriter) ===== */
+  .hero-title { font-family: 'Newsreader', serif; font-weight: 400; font-size: clamp(24px, 6.6vw, 46px); line-height: 1.13; letter-spacing: -0.01em; color: #161512; margin: 0; max-width: 100%; }
+  .hero-title .tl { display: block; white-space: nowrap; animation-name: typeline; animation-fill-mode: both; }
+  .hero-title .tl1 { animation-duration: 0.85s; animation-delay: 0.20s; animation-timing-function: steps(19, end); }
+  .hero-title .tl2 { animation-duration: 0.70s; animation-delay: 1.05s; animation-timing-function: steps(16, end); }
+  .hero-title .tl3 { animation-duration: 0.55s; animation-delay: 1.75s; animation-timing-function: steps(12, end); }
+  @keyframes typeline { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+  .hero-title .caret { display: inline-block; width: 2px; height: 0.86em; margin-left: 5px; background: #2f5fb0; vertical-align: -0.06em; opacity: 0; animation: caretBlink 1.05s step-end 1.75s infinite; }
+  @keyframes caretBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+  .wave { display: inline-block; transform-origin: 70% 80%; animation: wave 1.8s ease 0.35s 2; }
+  @keyframes wave { 0%, 60%, 100% { transform: rotate(0); } 10%, 30% { transform: rotate(14deg); } 20% { transform: rotate(-8deg); } 40% { transform: rotate(-4deg); } 50% { transform: rotate(10deg); } }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-title .tl { animation: none !important; clip-path: none !important; }
+    .hero-title .caret { display: none; }
+    .wave { animation: none !important; }
+  }
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail" data-bg-color="#2f5fb0">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#2f5fb0"></rect><text x="50" y="50" dy="0.35em" text-anchor="middle" font-family="Georgia, serif" font-size="34" fill="#ffffff">MM</text></svg>
+</template>
+
+<div style="min-height: 100vh; background: #ffffff; font-family: 'Public Sans', sans-serif; color: #1a1a1a;">
+  <div class="wrap" style="max-width: 1080px; margin: 0 auto; padding: 38px 48px 64px;">
+
+    <!-- nav -->
+    <div style="display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 76px;">
+      <span style="font-family: 'Newsreader', serif; font-size: 19px; font-weight: 500;">Meena M</span>
+      <div style="display: flex; gap: 24px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #7a7569;">
+        <a href="mailto:mdmk.meena@gmail.com">Contact</a>
+        <a href="https://www.linkedin.com/in/meena-m" style="color:#2f5fb0;">LinkedIn ↗</a>
+      </div>
+    </div>
+
+    <!-- hero -->
+    <div class="hero" style="display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; padding-bottom: 92px;">
+      <!-- left: intro -->
+      <div>
+        <div style="font-family: 'Newsreader', serif; font-size: 28px; font-weight: 500; color: #161512; margin-bottom: 20px;">Hi, I'm Meena <span class="wave">👋</span></div>
+        <p style="font-size: 16px; line-height: 1.65; color: #57534b; max-width: 500px; margin: 0 0 18px;">With a PhD in Human Centered Design &amp; Engineering and a foundation in computer science, I translate technical complexity into experiences that actually work for people.</p>
+        <p style="font-size: 16px; line-height: 1.65; color: #57534b; max-width: 500px; margin: 0;">I work at the intersection of UX, design, and engineering to shape decisions that are technically sound, useful and intuitive for the people using them. I also bring that lens to AI integration in UX practice, figuring out where it genuinely improves outcomes and how to apply it deliberately.</p>
+      </div>
+      <!-- right: typed headline -->
+      <div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #2f5fb0; margin-bottom: 22px;">HCI / UX Researcher</div>
+        <h1 class="hero-title" aria-label="Aligning technology with human needs and behavior">
+          <span class="tl tl1">Aligning technology</span>
+          <span class="tl tl2">with human needs</span>
+          <span class="tl tl3">and behavior<i class="caret"></i></span>
+        </h1>
+      </div>
+    </div>
+
+    <!-- ===== INDUSTRY ===== -->
+    <div id="industry" style="margin-bottom: 28px;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #6b6862;">Industry Experience</div>
+    </div>
+
+    <a href="industry.html" class="exp-card" style="display: grid; grid-template-columns: 150px 1fr 220px; gap: 40px; align-items: start; padding: 36px 40px; border: 1px solid #e8e8e6; border-radius: 2px; background: #ffffff; margin-bottom: 100px;" style-hover="background:#fcfbf9;">
+      <div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #1a1a1a;">2025 – 2026</div>
+      </div>
+      <div>
+        <div style="font-family: 'Newsreader', serif; font-size: 27px; line-height: 1.18; margin-bottom: 14px;">UX Researcher (Meta)</div>
+        <p style="font-size: 14.5px; line-height: 1.62; color: #57534b; margin: 0; max-width: 460px;">In the Monetization org, I led research that enabled cross-functional teams to make informed product decisions, balancing usability with security.</p>
+      </div>
+      <div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #7a7569; margin-bottom: 14px;">Methods</div>
+        <div style="display: flex; flex-direction: column; gap: 9px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #57534b;">
+          <span>User interviews</span>
+          <span>Usability benchmarking</span>
+          <span>AI-assisted user behavior analysis</span>
+          <span>Code-grounded scenario mapping</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- ===== RESEARCH & OTHER PROJECTS ===== -->
+    <div id="projects" style="margin-bottom: 28px;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #6b6862;">Research Projects</div>
+    </div>
+
+    <!-- card grid -->
+    <div class="proj-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #e8e8e6; border: 1px solid #e8e8e6;">
+
+      <a href="synthetic-data.html" style="background: #ffffff; padding: 30px 28px 28px; display: block;" style-hover="background:#fcfbf9;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #7a7569;">01</span>
+        </div>
+        <div style="font-family: 'Newsreader', serif; font-size: 25px; line-height: 1.18; margin-bottom: 12px;">Synthetic Data Generation</div>
+        <div style="font-size: 13.5px; line-height: 1.55; color: #6b6862; margin-bottom: 24px; max-width: 380px;">Grounding LLM-generated synthetic data in empirical HCI research to make it useful for design and evaluation of AI applications</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11px;">
+          <span style="border: 1px solid #e0ddd5; color: #57534b; padding: 3px 10px; border-radius: 2px;">synthetic data generation and evaluation</span>
+          <span style="border: 1px solid #e0ddd5; color: #57534b; padding: 3px 10px; border-radius: 2px;">few-shot classification</span>
+          <!-- <span style="border: 1px solid #e0ddd5; color: #57534b; padding: 3px 10px; border-radius: 2px;"></span> -->
+        </div>
+      </a>
+
+      <a href="ai-evaluation.html" style="background: #ffffff; padding: 30px 28px 28px; display: block;" style-hover="background:#fcfbf9;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #7a7569;">02</span>
+        </div>
+        <div style="font-family: 'Newsreader', serif; font-size: 25px; line-height: 1.18; margin-bottom: 12px;">Human-Centered AI Evaluation</div>
+        <div style="font-size: 13.5px; line-height: 1.55; color: #6b6862; margin-bottom: 24px; max-width: 380px;">Evaluating a toxicity-detection model on data from different platforms and understanding where its judgments diverge from people's</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11px;">
+          <span style="border: 1px solid #e0ddd5; color: #57534b; padding: 3px 10px; border-radius: 2px;">sociotechnical evaluation</span>
+          <span style="border: 1px solid #e0ddd5; color: #57534b; padding: 3px 10px; border-radius: 2px;">crowdsourcing human judgements of toxicity</span>
+          <span style="border: 1px solid #e0ddd5; color: #57534b; padding: 3px 10px; border-radius: 2px;">visualizing human-AI alignment</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- footer -->
+    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 40px; padding-top: 24px; border-top: 1px solid #e8e8e6; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #7a7569;">
+      <a href="mailto:mdmk.meena@gmail.com" style="color: #1a1a1a;">mdmk.meena@gmail.com</a>
+      <a href="https://www.linkedin.com/in/meena-m" style="color: #2f5fb0;">linkedin.com/in/meena-m ↗</a>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
